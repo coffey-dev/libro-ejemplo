@@ -28,21 +28,25 @@ const PageCover = React.forwardRef((props, ref) => {
   export default function DemoBook(props){
 
     const [pagina, setPagina] = useState(0);
-    const [totalPaginas, setTotalPaginas] = useState(0);
+    const [totalPaginas, setTotalPaginas] = useState(1);
   
   const book = useRef();
    
 
 const onFlip = useCallback((e) => {
   setPagina(e.data);
-  console.log('Pagina actual' + e.data)
+  console.log('Pagina actual: ' + e.data)
 })
 
+const onInit = useCallback(() => {
+  const conteoDePaginas = obtenerTotalDePaginas(book.current.pageFlip());
+  setTotalPaginas(conteoDePaginas);
+}, []);
 
-   useEffect(() => {
-    const conteoDePaginas = obtenerTotalDePaginas(book.current.pageFlip());
-    setTotalPaginas(conteoDePaginas); 
-   }, []);
+useEffect(() => {
+  onInit();
+}, [onInit]);
+
 
    function obtenerTotalDePaginas() {
     const flipBook = book.current.pageFlip();
@@ -50,10 +54,8 @@ const onFlip = useCallback((e) => {
       const totalDelConteoDePaginas = flipBook.getPageCount();
       return totalDelConteoDePaginas;
     }
-    return 0; // O manejar el caso en que flipBook sea nulo de acuerdo a tus necesidades
-  }
-  
-  
+    return 0;
+   }
   
       return (
         <div>
@@ -69,8 +71,10 @@ const onFlip = useCallback((e) => {
             showCover={true}
             mobileScrollSupport={true}
             onFlip={onFlip}
-            // onChangeOrientation={onChangeOrientation}
-           // onChangeState={onChangeState}
+            onInit={onInit}
+       /* onChangeOrientation={onChangeOrientation} */
+/* onChangeState={onChangeState} */
+
             className="demo-book"
             ref={book}
           >
@@ -78,7 +82,11 @@ const onFlip = useCallback((e) => {
             <PageCover>BOOK TITLE</PageCover>
             <Page number={1}>Lorem ipsum...</Page>
             <Page number={2}>Lorem ipsum...</Page>
-          
+            <Page number={3}>Lorem ipsum...</Page>
+            <Page number={4}>Lorem ipsum...</Page>
+            <Page number={5}>Lorem ipsum...</Page>
+            <Page number={6}>Lorem ipsum...</Page>
+        
             <PageCover>THE END</PageCover>
 
           </HTMLFlipBook>
@@ -86,17 +94,18 @@ const onFlip = useCallback((e) => {
           <div className="container">
             <div>
 
-            <button onClick={() => book.current.pageFlip().flipNext()}>
-                Next page
-                </button>
-
-              [<span>{pagina}</span> of
-               <span>{totalPaginas}</span>]
-
-               <button onClick={() => book.current.pageFlip().flipPrev()}>
+            <button onClick={() => book.current.pageFlip().flipPrev()}>
                 Prev page
                 </button>
+           
 
+              [<span>{pagina}</span>of
+               <span>{totalPaginas}</span>]
+
+              
+                <button onClick={() => book.current.pageFlip().flipNext()}>
+                Next page
+                </button>
 
             </div>
             <div>
@@ -107,5 +116,5 @@ const onFlip = useCallback((e) => {
           </div>
           </div>
 
-      );
-      }
+      )
+  }
