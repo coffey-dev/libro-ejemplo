@@ -17,11 +17,12 @@ const PageCover = React.forwardRef((props, ref) => {
     return (
       <div className="page" ref={ref}>
         <div className="page-content">
+          <div className="page-header">32</div>
           <div className="page-text">{props.children}</div>
           <div className="page-footer">
           <p>Si subes directamente a la montaña,</p>
           <p>pasa a la página 28.</p>
-          <br></br>
+<br></br>
           <p>Si exploras alrededor de la base,</p>
           <p>pasa a la página 30.</p>
           </div>
@@ -101,7 +102,7 @@ useEffect(() => {
 <p>-¡Qué suerte!</p>
 
 </Page>
-            <Page number={2}>Lorem ipsum...</Page>
+            <Page number={2}>Lorem Ipsum...</Page>
             <Page number={3}>Lorem ipsum...</Page>
             <Page number={4}>Lorem ipsum...</Page>
             <Page number={5}>Lorem ipsum...</Page>

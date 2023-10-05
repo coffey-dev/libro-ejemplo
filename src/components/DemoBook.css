@@ -115,7 +115,6 @@ p {
 }
 
 .page {
-    /* padding:20px; */
     background-color:#fdfaf7;
     color:black;
     border:1px solid #c2b5a3;
@@ -132,11 +131,16 @@ p {
 }
 
 .page .page-content .page-header{
-    height:30px;
+    height:0px;
     font-size:100%;
     text-transform:uppercase;
-    text-align:center
+    text-align:center;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 15px;
+    padding-top: 2px;
 }
+
 .page .page-content .page-image{
     height:100%;
     background-size:contain;
@@ -152,26 +156,26 @@ p {
     margin-top:0px; 
     padding-top: 20px;
     padding-left: 50px;
-    padding-bottom: 0px;
+    padding-bottom: 10px;
     padding-right: 50px;
     box-sizing:border-box;
-    border-top:1px solid #f4e8d7;
+    position: relative;
     
 }
 
 .page .page-content .page-footer{
     height: 130px;
-    width: calc(100% - 100px); /* Establece el ancho de la línea, restando el padding (20px) de cada lado */
-    border-top: 1.9px solid black; /* Establece el grosor y el color de la línea */
-    margin: 0 auto; /* Centra la línea horizontalmente dentro del contenedor */
-    box-sizing: border-box; /* Incluye el borde y el relleno en el cálculo del ancho */
-  
+    width: calc(100% - 100px); 
+    border-top: 1.9px solid black; 
+    margin: 0 auto; 
+    box-sizing: border-box; 
+    padding-top: 10px;
     font-family: Benguiat;
-    font-size:medium;
+    font-size: 80%;
     line-height: 15px;
     text-align:end;
     margin: auto;
-    padding-top: 10px;
+    line-height: 15px;
 
 }
 
@@ -186,7 +190,19 @@ p {
 }
 
 .page.--right .page-footer{
-    text-align:right
+    text-align:right;
+}
+
+.page.--right .page-header{
+    height: 50px;
+    width:50px;
+    font-size:100%;
+    text-transform:uppercase;
+    text-align:right;
+    position: absolute;
+    padding-left: 420px;
+    padding-top: 3px;
+
 }
 
 .page.hard{
