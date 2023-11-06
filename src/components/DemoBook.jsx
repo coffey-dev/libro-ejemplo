@@ -17,8 +17,10 @@ const PageCover = React.forwardRef((props, ref) => {
     return (
       <div className="page" ref={ref}>
         <div className="page-content">
-          <div className="page-header">32</div>
-          <div className="page-text">{props.children}</div>
+          <div className="page-header">{props.children.hoja}</div>
+          <div className="page-text">
+          <p>{props.children.texto}</p>
+          </div>
           <div className="page-footer">
           <p>Si subes directamente a la montaña,</p>
           <p>pasa a la página 28.</p>
@@ -35,8 +37,29 @@ const PageCover = React.forwardRef((props, ref) => {
 
     const [pagina, setPagina] = useState(0);
     const [totalPaginas, setTotalPaginas] = useState(1);
+    const [content, setContent] = useState([]);
+    const [isLoading, setIsLoading] = useState(true); // Add loading state
+
+    const book = useRef();
+
+    const fetchContent = async () => {
+      try {
+        const response = await fetch("https://coffey-dev.github.io/json-textos/paginas.json"); // Update the path to your JSON file
+        const data = await response.json();
+        setContent(data);
+        setIsLoading(false); // Set loading state to false after content is loaded
+      } catch (error) {
+        console.error("Error fetching content:", error);
+        setIsLoading(false); 
+      }
+    };
+
+    useEffect(() => {
+      fetchContent();
+    }, []);
   
-  const book = useRef();
+  
+
    
 
 const onFlip = useCallback((e) => {
@@ -49,10 +72,6 @@ const onInit = useCallback(() => {
   setTotalPaginas(conteoDePaginas);
 }, []);
 
-useEffect(() => {
-  onInit();
-}, [onInit]);
-
 
    function obtenerTotalDePaginas() {
     const flipBook = book.current.pageFlip();
@@ -63,6 +82,10 @@ useEffect(() => {
     return 0;
    }
   
+   if (isLoading) {
+    return <div>Loading...</div>; // Render a loading message or spinner while content is being fetched
+  }
+
       return (
         <div className="wrapper">
          
@@ -88,26 +111,12 @@ useEffect(() => {
           >
 
             <PageCover>BOOK TITLE</PageCover>
-            <Page number={1}><p>-Sin duda me siento más seguro bajo tierra –dices.</p>
-<p>-Entonces sígueme –te responde Keesa, pasando a prisa entre dos largas pilas de escombros-. Debe de haber… ¡Sí! ¡Aquí está!</p>
-<p>Keesa desaparece de pronto, y tú corres hacia donde él estaba parado. Compruebas que hay una abertura en el suelo. Tratas de introducirte en ella con cuidado, pero resbalas y de repente estás deslizándote hacia abajo por un largo pasadizo. Aterrizas en el fondo con un golpe seco.</p>
-<p>-¡Ay! – gritas-. ¡Mi rodilla!</p>
-<p>-¿Estás muy lastimado? ¡Puedes caminar? –te grita Keesa desde alguna parte de la oscuridad, más adelante.</p>
-<p>-Estoy bien. Solamente me pelé la rodilla –le respondes.</p>
-<p>-No tendría que haberme adelantado tanto –dice Keesa; vuelve adonde te hallas sentado en el suelo y te toca la rodilla.</p>
-<p>-¿Y ahora qué hacemos? –preguntas.</p>
-<p>-Esperaremos hasta que nuestros ojos se acostumbren a la penumbra –te dice Keesa-. Luego averiguaremos qué es lo que hay acá abajo.</p>
-<p>Después de un rato, tú y Keesa comienzan a descender por un largo pasillo. En muchos lugares el cielo raso se ha derrumbado, y deben caminar por encima de pilas de escombros. Siguen y siguen, siempre adelante. Deben de haber llegado ya al límite de la ciudad, piensas, o aún más allá. Entonces ves una luz brillante en el túnel, más adelante, arriba. Ambos corren hacia ella. Cuando llegan allí, sólo son capaces de abrir la boca de asombro.</p>
-<p>Keesa deja escapar un chillido de satisfacción.</p>
-<p>-¡Qué suerte!</p>
-
-</Page>
-            <Page number={2}>Lorem Ipsum...</Page>
-            <Page number={3}>Lorem ipsum...</Page>
-            <Page number={4}>Lorem ipsum...</Page>
-            <Page number={5}>Lorem ipsum...</Page>
-            <Page number={6}>Lorem ipsum...</Page>
-        
+            
+            {content.map((pageContent) => (
+  <Page key={pageContent.id} number={pageContent.hoja}>
+    {pageContent}
+  </Page>
+))}
             <PageCover>THE END</PageCover>
 
           </HTMLFlipBook>

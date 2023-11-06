@@ -1,6 +1,4 @@
 import DemoBook from "./components/DemoBook";
-import Flip from "./components/FlipBook";
-import FlipPages from "./components/FlipPages";
 
 function App() {
   return (
