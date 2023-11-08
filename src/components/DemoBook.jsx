@@ -19,6 +19,9 @@ const Page = React.forwardRef((props, ref) => {
 const messageWithNewLines = props.children.texto;
 const lines = messageWithNewLines.split('\n');
 
+const optionsWithNewLines = props.children.opciones;
+const opciones = optionsWithNewLines.split('\n');
+
 
     return (
       <div className="page" ref={ref}>
@@ -32,12 +35,16 @@ const lines = messageWithNewLines.split('\n');
     </div>
           </div>
           <div className="page-footer">
-          <p>Si subes directamente a la montaña,</p>
-          <p>pasa a la página 28.</p>
-<br></br>
-          <p>Si exploras alrededor de la base,</p>
-          <p>pasa a la página 30.</p>
-          </div>
+  <div>
+    {opciones.map((opcion, index) => (
+      <React.Fragment key={index}>
+        <p>{opcion}</p>
+        {opcion.endsWith(".") && <br />} {/* Add <br /> if opcion ends with "." */}
+      </React.Fragment>
+    ))}
+  </div>
+</div>
+
         </div>
       </div>
     );
