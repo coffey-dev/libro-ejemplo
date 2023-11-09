@@ -165,16 +165,14 @@ p {
 
 .page .page-content .page-footer{
     height: 130px;
-    width: calc(100% - 100px); 
-    border-top: 1.9px solid black; 
-    margin: 0 auto; 
+    width: calc(100% - 100px);  
     box-sizing: border-box; 
     padding-top: 10px;
     font-family: Benguiat;
     font-size: 80%;
     line-height: 15px;
     text-align:end;
-    margin: auto;
+    margin:auto;
     line-height: 15px;
 
 }

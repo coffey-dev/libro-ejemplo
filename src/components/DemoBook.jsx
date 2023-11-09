@@ -19,8 +19,20 @@ const Page = React.forwardRef((props, ref) => {
 const messageWithNewLines = props.children.texto;
 const lines = messageWithNewLines.split('\n');
 
-const optionsWithNewLines = props.children.opciones;
-const opciones = optionsWithNewLines.split('\n');
+const opcion1WithNewLines = props.children.opcion1;
+  const opcion1Lines = opcion1WithNewLines.split('\n');
+
+  const opcion2WithNewLines = props.children.opcion2;
+  const opcion2Lines = opcion2WithNewLines.split('\n');
+
+
+  const borderTopStyle = 
+  props.children.opcion1 !== '' && props.children.opcion2 !== '' ? 
+    { borderTop: '1.9px solid black' } : 
+    props.children.opcion1 !== '' && props.children.opcion2 === '' ? 
+      { borderTop: '1.9px solid black', height: '65px' } : 
+      {};
+
 
 
     return (
@@ -34,14 +46,15 @@ const opciones = optionsWithNewLines.split('\n');
       ))}
     </div>
           </div>
-          <div className="page-footer">
+          <div className="page-footer" style={borderTopStyle}>
   <div>
-    {opciones.map((opcion, index) => (
-      <React.Fragment key={index}>
-        <p>{opcion}</p>
-        {opcion.endsWith(".") && <br />} {/* Add <br /> if opcion ends with "." */}
-      </React.Fragment>
-    ))}
+  {opcion1Lines.map((option1, index) => (
+              <p key={index}>{option1}</p>
+            ))}
+    <br></br>
+    {opcion2Lines.map((option2, index) => (
+              <p key={index}>{option2}</p>
+            ))}
   </div>
 </div>
 
